@@ -1,0 +1,27 @@
+FROM harbor.idc.roywong.top/library/rockylinux:9.4
+
+LABEL AUTHOR="Wanghaohao" DESCRIPTION="自定义RockyLinux9.4系统，安装常用小工具，用于测试其他服务。"
+
+ADD files/vimrc /root/.vimrc
+
+RUN dnf -y install wget \
+                   nc \
+                   unzip \
+                   telnet \
+                   net-tools \
+                   mtr \
+                   procps-ng \
+                   dos2unix \
+                   unix2dos \
+                   tree \
+                   vim \
+                   subscription-manager \
+                   redis \
+                   mysql \
+                   bind-utils \
+                   java-11-openjdk \
+                   java-11-openjdk-*
+
+WORKDIR /data
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]
