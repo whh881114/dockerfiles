@@ -6,7 +6,7 @@ USER root
 ENV MAVEN_VERSION=3.9.9 \
     MAVEN_HOME=/usr/share/maven \
     JDK_VERSION=8u452-b09 \
-    ACTIVE_JDK8=/opt/active-jdk8.env
+    ACTIVE_JDK8=/opt/active-jdk8.sh
 
 ENV PATH=${MAVEN_HOME}/bin:${PATH}
 
@@ -18,8 +18,11 @@ RUN apt-get update && \
     mv apache-maven-${MAVEN_VERSION} $MAVEN_HOME && \
     mv jdk${JDK_VERSION} /opt
 
-RUN echo "export JAVA_HOME=/opt/jdk${JDK_VERSION}" > ${ACTIVE_JDK8} && \
+RUN echo "#!/bin/bash" > ${ACTIVE_JDK8} && \
+    echo "export JAVA_HOME=/opt/jdk${JDK_VERSION}" >> ${ACTIVE_JDK8} && \
     echo "export PATH=${JAVA_HOME}/bin:${PATH}" >> ${ACTIVE_JDK8} && \
+    echo "export PATH=${JAVA_HOME}/bin:${PATH}" >> ${ACTIVE_JDK8} && \
+    echo "echo $PATH && java -version" >> ${ACTIVE_JDK8} && \
     chmod 755 ${ACTIVE_JDK8}
 
 USER jenkins
