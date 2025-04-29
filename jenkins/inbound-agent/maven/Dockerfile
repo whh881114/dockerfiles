@@ -1,5 +1,4 @@
-# 1. 以官方的 inbound-agent为基础镜像，
-FROM jenkins/inbound-agent:latest-jdk8
+FROM jenkins/inbound-agent:4.11-1-jdk8
 
 USER root
 
