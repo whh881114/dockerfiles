@@ -1,19 +1,15 @@
 # 1. 以官方的 inbound-agent为基础镜像，
-FROM jenkins/inbound-agent:3301.v4363ddcca_4e7-3
+FROM jenkins/inbound-agent:latest-jdk8
 
 USER root
 
 ENV MAVEN_VERSION=3.9.9 \
-    MAVEN_HOME=/usr/share/maven \
-    JDK_VERSION=8u452-b09
+    MAVEN_HOME=/usr/share/maven
 
-ENV JAVA_HOME=/opt/jdk${JDK_VERSION} \
-    PATH=${MAVEN_HOME}/bin:${JAVA_HOME}/bin:${PATH}
+ENV PATH=${MAVEN_HOME}/bin:${PATH}
 
 ADD apache-maven-${MAVEN_VERSION}-bin.tar.gz .
-ADD OpenJDK8U-jdk_x64_linux_hotspot_8u452b09.tar.gz .
 
-RUN mv apache-maven-${MAVEN_VERSION} ${MAVEN_HOME} && \
-    mv jdk${JDK_VERSION} ${JAVA_HOME}
+RUN mv apache-maven-${MAVEN_VERSION} ${MAVEN_HOME}
 
 USER jenkins
