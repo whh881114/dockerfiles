@@ -12,8 +12,8 @@ ENV MAVEN_VERSION=3.9.9 \
 
 ENV PATH=${MAVEN_HOME}/bin:${PATH}
 
-ADD active-jdk*.sh /opt
 ADD *.tar.gz .
+ADD active-jdk*.sh /opt
 
 RUN mv apache-maven-${MAVEN_VERSION} $MAVEN_HOME && \
     mv jdk${JDK8_VERSION} /opt/jdk8 && \
