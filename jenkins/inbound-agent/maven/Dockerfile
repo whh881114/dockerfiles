@@ -16,24 +16,23 @@ ADD OpenJDK8U-jdk_x64_linux_hotspot_8u452b09.tar.gz .
 RUN mv apache-maven-${MAVEN_VERSION} $MAVEN_HOME && \
     mv jdk${JDK8_VERSION} /opt/jdk8
 
-RUN echo "#!/bin/bash" > ${ACTIVE_JDK8} && \
-    echo "export JAVA_HOME=/opt/jdk${JDK_VERSION}" >> ${ACTIVE_JDK8} && \
-    echo "export PATH=${JAVA_HOME}/bin:${PATH}" >> ${ACTIVE_JDK8} && \
-    echo "export PATH=${JAVA_HOME}/bin:${PATH}" >> ${ACTIVE_JDK8} && \
-    echo "echo $PATH && java -version" >> ${ACTIVE_JDK8} && \
-    chmod 755 ${ACTIVE_JDK8}
+#RUN echo "#!/bin/bash" > ${ACTIVE_JDK8} && \
+#    echo "export JAVA_HOME=/opt/jdk${JDK_VERSION}" >> ${ACTIVE_JDK8} && \
+#    echo "export PATH=${JAVA_HOME}/bin:${PATH}" >> ${ACTIVE_JDK8} && \
+#    echo "export PATH=${JAVA_HOME}/bin:${PATH}" >> ${ACTIVE_JDK8} && \
+#    echo "echo $PATH && java -version" >> ${ACTIVE_JDK8} && \
+#    chmod 755 ${ACTIVE_JDK8}
 
 RUN cd /opt && \
-    for version in [8, 21]
-    do
+    for version in {8,21}; do \
       cat > active-jdk{version}.sh <<EOF
-      #!/bin/bash
+#!/bin/bash
 
-      JAVA_HOME=/opt/jdk${version}
-      export $JAVA_HOME
-      export PATH=${JAVA_HOME}/bin:${PATH}
-      EOF
-      chmod 755 active-jdk{version}.sh
-    done
+JAVA_HOME=/opt/jdk${version}
+export JAVA_HOME
+export PATH=\${JAVA_HOME}/bin:\${PATH}
+EOF
+    done && \
+    chmod 755 active-jdk*.sh
 
 USER jenkins
