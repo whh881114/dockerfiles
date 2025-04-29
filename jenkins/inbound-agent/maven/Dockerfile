@@ -13,7 +13,7 @@ ENV PATH=${MAVEN_HOME}/bin:${PATH}
 ADD apache-maven-${MAVEN_VERSION}-bin.tar.gz .
 ADD OpenJDK8U-jdk_x64_linux_hotspot_8u452b09.tar.gz .
 
-RUN RUN apt-get update && \
+RUN apt-get update && \
     apt-get -y install curl bash && \
     mv apache-maven-${MAVEN_VERSION} $MAVEN_HOME && \
     mv jdk${JDK_VERSION} /opt
