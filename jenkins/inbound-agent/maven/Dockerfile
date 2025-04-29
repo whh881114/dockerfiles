@@ -12,9 +12,8 @@ ADD apache-maven-${MAVEN_VERSION}-bin.tar.gz .
 ADD OpenJDK8U-jdk_x64_linux_hotspot_8u452b09.tar.gz .
 
 RUN mv apache-maven-${MAVEN_VERSION} $MAVEN_HOME && \
-    mv jdk${JDK_VERSION} ${JAVA_HOME} \
+    mv jdk${JDK_VERSION} ${JAVA_HOME}
 
-RUN cat > ${ACTIVE_JDK8} << EOF
-export JAVA_HOME=/opt/jdk${JDK_VERSION}
-export PATH=${JAVA_HOME}/bin:${PATH}
-EOF && chmod 755 ${ACTIVE_JDK8}
+RUN echo "export JAVA_HOME=/opt/jdk${JDK_VERSION}" > ${ACTIVE_JDK8} && \
+    echo "export PATH=${JAVA_HOME}/bin:${PATH}" >> ${ACTIVE_JDK8} && \
+    chmod 755 ${ACTIVE_JDK8}
