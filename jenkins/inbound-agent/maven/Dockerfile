@@ -1,4 +1,4 @@
-FROM jenkins/inbound-agent:4.11-1-jdk8
+FROM jenkins/inbound-agent:4.13.2-1-jdk8
 
 USER root
 
