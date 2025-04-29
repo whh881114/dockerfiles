@@ -10,7 +10,7 @@ ENV PATH=${MAVEN_HOME}/bin:${PATH}
 
 ADD apache-maven-3.9.9-bin.tar.gz .
 ADD OpenJDK8U-jdk_x64_linux_hotspot_8u452b09.tar.gz .
-ADD active-jdk8.sh /opt
+ADD jdk8.profile /opt
 
 RUN mv apache-maven-${MAVEN_VERSION} $MAVEN_HOME && \
     mv jdk${JDK_VERSION} /opt/jdk8
