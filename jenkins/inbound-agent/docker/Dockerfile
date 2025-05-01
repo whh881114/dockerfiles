@@ -25,4 +25,6 @@ RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends docker-ce-cli=5:28.1.1-1~debian.12~bookworm && \
     rm -rf /var/lib/apt/lists/*
 
+RUN mkdir /root/.docker && chmod 700 /root/.docker
+
 USER jenkins
