@@ -1,6 +1,10 @@
 # 自定义argocd镜像
 
 ## 2025-05-14
+- 需要增加额外的`yq`工具，将`jsonnet`文件渲染的结果转换为`yaml`。
+
+
+## 2025-05-14
 - 还原`argocd`镜像，在原始镜像`quay.io/argoproj/argocd:v2.12.1`的基础上，添加`jsonnet`工具。
 
 
