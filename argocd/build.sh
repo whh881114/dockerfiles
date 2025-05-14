@@ -1,8 +1,8 @@
 #!/bin/bash
 
 registry="harbor.idc.roywong.work"
-repository="public"
-image="$registry/$repository/argocd:v2.12.1-2025-05-14-v1.1"
+repository="library"
+image="$registry/$repository/argocd-cmp-jsonnet:1.0"
 
 docker build -t $image .
 docker push $image
