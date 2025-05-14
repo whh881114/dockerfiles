@@ -1,6 +1,6 @@
 #!/bin/bash
 
-registry="harbor.idc.roywong.top"
+registry="harbor.idc.roywong.work"
 repository="library"
 image="$registry/$repository/rockylinux:9.4"
 
