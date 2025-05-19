@@ -9,5 +9,5 @@ ADD yq_linux_amd64.tar.gz /usr/local/bin
 # 官方镜像没有以下目录，必须要创建。作为plugin时，渲染yaml文件时，其实是在这个sidecar中运行。
 # config目录用于存放plugin.yaml文件。
 # plugins目录用于存放主容器的socket文件。
-WORKDIR /home/argocd/cmp-server/config
-WORKDIR /home/argocd/cmp-server/plugins
+# WORKDIR /home/argocd/cmp-server/config
+# WORKDIR /home/argocd/cmp-server/plugins
