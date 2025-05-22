@@ -1,13 +1,31 @@
+# Stage 1: 构建工具准备阶段
+FROM harbor.idc.roywong.work/docker.io/library/busybox:1.37.0-glibc AS tools
+
+WORKDIR /tmp
+
+# 假设你有这三个文件在构建上下文里
+COPY curl-amd64 ./curl
+ADD yq_linux_amd64.tar.gz .
+ADD go-jsonnet_0.21.0_Linux_x86_64.tar.gz .
+
+# 解压、改名、加权限
+RUN set -eux && \
+    mv yq_linux_amd64 yq && \
+    chmod +x curl && \
+    mkdir /out && \
+    mv curl yq jsonnet* /out/
+
+
+# Stage 2: 最终镜像，基于 Argo CD
 FROM harbor.idc.roywong.work/quay.io/argoproj/argocd:v2.12.1
 
 LABEL AUTHOR="WangHaoHao" \
-      DESCRIPTION="自定义argocd系统，在原始镜基础上安装jsonnet。"
+      DESCRIPTION="自定义 argocd 镜像，在原始镜像上添加 jsonnet/yq/curl 等工具"
 
-ADD go-jsonnet_0.21.0_Linux_x86_64.tar.gz /usr/local/bin
-ADD yq_linux_amd64.tar.gz /usr/local/bin
+ENV PATH="/home/argocd/bin:${PATH}"
+WORKDIR /home/argocd/bin
 
-# 官方镜像没有以下目录，必须要创建。作为plugin时，渲染yaml文件时，其实是在这个sidecar中运行。
-# config目录用于存放plugin.yaml文件。
-# plugins目录用于存放主容器的socket文件。
-# WORKDIR /home/argocd/cmp-server/config
-# WORKDIR /home/argocd/cmp-server/plugins
+# 从上一阶段 COPY 文件进来（已经整理好权限和名字）
+COPY --from=tools /out/ .
+
+WORKDIR /home/argocd
