@@ -1,0 +1,7 @@
+docker.io/pgvector/pgvector:0.8.0-pg15
+docker.io/library/mongo:5.0.18
+docker.io/library/redis:7.2-alpine
+ghcr.io/labring/fastgpt-sandbox:v4.9.11
+ghcr.io/labring/fastgpt-mcp_server:v4.9.11
+ghcr.io/labring/fastgpt:v4.9.11
+ghcr.io/labring/aiproxy:v0.1.7
